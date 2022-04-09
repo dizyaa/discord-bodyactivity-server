@@ -7,5 +7,5 @@ class Report(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     heartRate = Column(Integer)
-    step = Column(Integer)
+    steps = Column(Integer)
     time = Column(Integer)

@@ -15,7 +15,7 @@ def get_report_by_timestamp(db: Session, timestamp: int):
 def create_report(db: Session, user: schemas.ReportCreate):
     db_report = models.Report(
         heartRate=user.heartRate,
-        step=user.step,
+        steps=user.steps,
         time=user.time
     )
     db.add(db_report)

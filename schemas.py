@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 class ReportBase(BaseModel):
     heartRate: int
-    step: int
+    steps: int
     time: int
 
 
