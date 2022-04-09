@@ -1,7 +1,8 @@
 import pypresence
 import schemas
+import config
 
-RPC = pypresence.Presence("949059085515517982")
+RPC = pypresence.Presence(config.DISCORD_PRESENCE_ID)
 
 
 def start():
