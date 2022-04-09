@@ -21,6 +21,5 @@ def update(report: schemas.ReportBase):
     RPC.update(
         state='Status: {}'.format(states.get(report.activity)),
         details='Heart rate: {}'.format(report.heartRate),
-        large_image="heart",
-        buttons=[{"label": "GitHub", "url": "https://github.com/dizyaa/discord-bodyactivity-android"}]
+        large_image="heart"
     )
