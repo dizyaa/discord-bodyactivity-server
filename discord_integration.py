@@ -10,8 +10,15 @@ def start():
 
 
 def update(report: schemas.ReportBase):
+    states = {
+        "UNKNOWN": "Unknown",
+        "EXERCISE": "Exercising",
+        "PASSIVE": "Idling",
+        "ASLEEP": "Sleeping"
+    }
+
     RPC.update(
-        state="Steps: {}".format(report.steps),
+        state='Status: {}'.format(states.get(report.activity)),
         details='Heart rate: {}'.format(report.heartRate),
-        large_image="bird"
+        large_image="heart"
     )

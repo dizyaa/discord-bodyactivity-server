@@ -12,11 +12,16 @@ def get_report_by_timestamp(db: Session, timestamp: int):
     return db.query(models.Report).filter(models.Report.time == timestamp).first()
 
 
-def create_report(db: Session, user: schemas.ReportCreate):
+def get_last_report(db: Session):
+    return db.query(models.Report).order_by(models.Report.id.desc()).first()
+
+
+def create_report(db: Session, report: schemas.ReportCreate):
     db_report = models.Report(
-        heartRate=user.heartRate,
-        steps=user.steps,
-        time=user.time
+        heartRate=report.heartRate,
+        steps=report.steps,
+        time=report.time,
+        activity=report.activity
     )
     db.add(db_report)
     db.commit()

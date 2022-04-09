@@ -7,4 +7,7 @@ import server
 
 if __name__ == '__main__':
     discord_integration.start()
-    asyncio.run(serve(server.app, Config()))
+
+    config = Config()
+    config.bind = ["0.0.0.0:8000"]
+    asyncio.run(serve(server.app, config))

@@ -8,4 +8,5 @@ class Report(Base):
     id = Column(Integer, primary_key=True, index=True)
     heartRate = Column(Integer)
     steps = Column(Integer)
+    activity = Column(String)
     time = Column(Integer)

@@ -21,11 +21,35 @@ def get_db():
         db.close()
 
 
-@app.post("/reports", response_model=schemas.Report)
-def create_report(user: schemas.ReportCreate, db: Session = Depends(get_db)):
-    logger.info(user.json())
-    db_user = crud.get_report_by_timestamp(db, timestamp=user.time)
-    if db_user:
-        raise HTTPException(status_code=400, detail="Report already created")
-    discord_integration.update(report=user)
-    return crud.create_report(db=db, user=user)
+@app.post("/reports")
+def create_report(request: schemas.ReportCreate, db: Session = Depends(get_db)):
+    logger.info(request.json())
+
+    last_report = crud.get_last_report(db)
+
+    heartRate = request.heartRate
+    steps = request.steps
+    activity = request.activity
+    time = request.time
+
+    if last_report:
+        if not heartRate:
+            heartRate = last_report.heartRate
+        if not steps:
+            steps = last_report.steps
+        if not activity:
+            activity = last_report.activity
+        if not time:
+            time = last_report.time
+
+    report = schemas.ReportCreate(
+        heartRate=heartRate,
+        steps=steps,
+        activity=activity,
+        time=time,
+    )
+
+    discord_integration.update(report=report)
+    crud.create_report(db, report)
+
+    return HTTPException(status_code=200)
